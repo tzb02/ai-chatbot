@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Widget Embed Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        .content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        /* Widget container styles */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 400px;
+            height: 600px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            z-index: 1000;
+        }
+        
+        .chatbot-widget iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .chatbot-widget {
+                width: calc(100% - 40px);
+                height: 500px;
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Survey Chatbot Widget Demo</h1>
+        
+        <div class="content">
+            <h2>Welcome to Our Website</h2>
+            <p>This is an example page showing how to embed the survey chatbot widget.</p>
+            <p>The chatbot appears in the bottom-right corner and can be used to conduct surveys or answer questions.</p>
+            
+            <h3>Features:</h3>
+            <ul>
+                <li>Easy to embed with a simple iframe</li>
+                <li>No authentication required</li>
+                <li>Stores conversations in database</li>
+                <li>Anonymous session tracking</li>
+                <li>Responsive design</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget">
+        <iframe 
+            src="http://localhost:3000/widget"
+            title="Survey Chatbot"
+            allow="clipboard-write"
+        ></iframe>
+    </div>
+</body>
+</html>

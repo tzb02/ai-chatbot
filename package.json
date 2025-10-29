@@ -15,7 +15,10 @@
     "db:pull": "drizzle-kit pull",
     "db:check": "drizzle-kit check",
     "db:up": "drizzle-kit up",
-    "test": "export PLAYWRIGHT=True && pnpm exec playwright test"
+    "test": "export PLAYWRIGHT=True && pnpm exec playwright test",
+    "widget:generate": "drizzle-kit generate --config=drizzle.config.simple.ts",
+    "widget:migrate": "npx tsx lib/db/migrate.simple.ts",
+    "widget:setup": "pnpm widget:generate && pnpm widget:migrate"
   },
   "dependencies": {
     "@ai-sdk/gateway": "^1.0.15",
@@ -73,6 +76,7 @@
     "react": "19.0.0-rc-45804af1-20241021",
     "react-data-grid": "7.0.0-beta.47",
     "react-dom": "19.0.0-rc-45804af1-20241021",
+    "react-markdown": "^9.0.1",
     "react-resizable-panels": "^2.1.7",
     "react-syntax-highlighter": "^15.6.6",
     "redis": "^5.0.0",
