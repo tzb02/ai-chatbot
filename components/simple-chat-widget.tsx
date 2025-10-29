@@ -55,7 +55,7 @@ export function SimpleChatWidget({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!input.trim() || status === "in_progress") {
+    if (!input.trim() || status !== "idle") {
       return;
     }
 

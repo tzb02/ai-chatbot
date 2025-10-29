@@ -23,10 +23,12 @@ const requestSchema = z.object({
   message: z.object({
     id: z.string(),
     role: z.literal("user"),
-    parts: z.array(z.object({
-      type: z.string(),
-      text: z.string().optional(),
-    })),
+    parts: z.array(
+      z.object({
+        type: z.string(),
+        text: z.string().optional(),
+      })
+    ),
   }),
   sessionId: z.string(),
 });
@@ -60,14 +62,17 @@ export async function POST(request: Request) {
 
     // Get existing messages
     const messagesFromDb = await getMessagesByChatId({ id });
-    const uiMessages: ChatMessage[] = [...convertToUIMessages(messagesFromDb), message];
+    const uiMessages = [
+      ...convertToUIMessages(messagesFromDb as any),
+      message,
+    ] as ChatMessage[];
 
     // Save user message
     await saveMessages({
       messages: [
         {
-          chatId: id,
           id: message.id,
+          chatId: id,
           role: "user",
           parts: message.parts,
           createdAt: new Date(),
@@ -94,10 +99,10 @@ export async function POST(request: Request) {
         await saveMessages({
           messages: messages.map((currentMessage) => ({
             id: currentMessage.id,
+            chatId: id,
             role: currentMessage.role,
             parts: currentMessage.parts,
             createdAt: new Date(),
-            chatId: id,
           })),
         });
       },
@@ -109,9 +114,9 @@ export async function POST(request: Request) {
     return new Response(stream.pipeThrough(new JsonToSseTransformStream()));
   } catch (error) {
     console.error("Widget chat error:", error);
-    return new Response(
-      JSON.stringify({ error: "An error occurred" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: "An error occurred" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }

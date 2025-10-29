@@ -25,33 +25,35 @@ export function SimpleInput({
     }
   };
 
+  const isLoading = status === "awaiting_message";
+  
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2">
+    <form className="flex gap-2" onSubmit={handleSubmit}>
       <Textarea
-        value={input}
+        className="min-h-[60px] resize-none"
+        disabled={isLoading}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Type your message..."
-        className="min-h-[60px] resize-none"
-        disabled={status === "in_progress"}
+        value={input}
       />
-      
-      {status === "in_progress" ? (
+
+      {isLoading ? (
         <Button
-          type="button"
+          className="h-[60px] w-[60px] shrink-0"
           onClick={stop}
           size="icon"
+          type="button"
           variant="outline"
-          className="h-[60px] w-[60px] shrink-0"
         >
           <Square className="h-5 w-5" />
         </Button>
       ) : (
         <Button
-          type="submit"
-          size="icon"
-          disabled={!input.trim()}
           className="h-[60px] w-[60px] shrink-0"
+          disabled={!input.trim()}
+          size="icon"
+          type="submit"
         >
           <SendHorizontal className="h-5 w-5" />
         </Button>
